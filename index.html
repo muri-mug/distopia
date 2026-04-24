@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Writeopia Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --md-primary:               #6750A4;
+  --md-on-primary:            #FFFFFF;
+  --md-primary-container:     #EADDFF;
+  --md-on-primary-container:  #21005D;
+  --md-secondary:             #625B71;
+  --md-on-secondary:          #FFFFFF;
+  --md-secondary-container:   #E8DEF8;
+  --md-on-secondary-container:#1D192B;
+  --md-tertiary:              #7D5260;
+  --md-on-tertiary:           #FFFFFF;
+  --md-tertiary-container:    #FFD8E4;
+  --md-on-tertiary-container: #31111D;
+  --md-error:                 #B3261E;
+  --md-on-error:              #FFFFFF;
+  --md-error-container:       #F9DEDC;
+  --md-on-error-container:    #410E0B;
+  --md-background:            #FFFBFE;
+  --md-on-background:         #1C1B1F;
+  --md-surface:               #FFFBFE;
+  --md-on-surface:            #1C1B1F;
+  --md-surface-variant:       #E7E0EC;
+  --md-on-surface-variant:    #49454F;
+  --md-outline:               #79747E;
+  --md-outline-variant:       #CAC4D0;
+  --md-inverse-surface:       #313033;
+  --md-inverse-on-surface:    #F4EFF4;
+  --md-inverse-primary:       #D0BCFF;
+  --md-scrim:                 #000000;
+  --wr-global-bg:             #FFFBFE;
+  --wr-light-bg:              #E7E0EC;
+  --wr-text-light:            #1C1B1F;
+  --wr-text-lighter:          #49454F;
+  --wr-highlight:             #E7E0EC;
+  --wr-selected-bg:           rgba(234,221,255,0.5);
+  --wr-card-shadow:           #CAC4D0;
+  --wr-divider:               #CAC4D0;
+  --wr-link:                  #6750A4;
+  --wr-default-button:        #6750A4;
+  /* Layout */
+  --nav-bg:       #F4EFF4;
+  --nav-border:   #E7E0EC;
+  --code-bg:      #F4EFF4;
+  --badge-bg:     #EADDFF;
+  --badge-color:  #21005D;
+  --tag-bg:       #E7E0EC;
+  --tag-color:    #49454F;
+}
+[data-theme="dark"] {
+  --md-primary:               #D0BCFF;
+  --md-on-primary:            #381E72;
+  --md-primary-container:     #4F378B;
+  --md-on-primary-container:  #EADDFF;
+  --md-secondary:             #CCC2DC;
+  --md-on-secondary:          #332D41;
+  --md-secondary-container:   #4A4458;
+  --md-on-secondary-container:#E8DEF8;
+  --md-tertiary:              #EFB8C8;
+  --md-on-tertiary:           #492532;
+  --md-tertiary-container:    #633B48;
+  --md-on-tertiary-container: #FFD8E4;
+  --md-error:                 #F2B8B5;
+  --md-on-error:              #601410;
+  --md-error-container:       #8C1D18;
+  --md-on-error-container:    #F9DEDC;
+  --md-background:            #1C1B1F;
+  --md-on-background:         #E6E1E5;
+  --md-surface:               #1C1B1F;
+  --md-on-surface:            #E6E1E5;
+  --md-surface-variant:       #49454F;
+  --md-on-surface-variant:    #CAC4D0;
+  --md-outline:               #938F99;
+  --md-outline-variant:       #49454F;
+  --md-inverse-surface:       #E6E1E5;
+  --md-inverse-on-surface:    #313033;
+  --md-inverse-primary:       #6750A4;
+  --md-scrim:                 #000000;
+  --wr-global-bg:             #1C1B1F;
+  --wr-light-bg:              #49454F;
+  --wr-text-light:            #E6E1E5;
+  --wr-text-lighter:          #CAC4D0;
+  --wr-highlight:             #49454F;
+  --wr-selected-bg:           rgba(79,55,139,0.35);
+  --wr-card-shadow:           rgba(0,0,0,0.4);
+  --wr-divider:               #49454F;
+  --wr-link:                  #D0BCFF;
+  --wr-default-button:        #D0BCFF;
+  --nav-bg:       #211F26;
+  --nav-border:   #49454F;
+  --code-bg:      #2B2930;
+  --badge-bg:     #4F378B;
+  --badge-color:  #EADDFF;
+  --tag-bg:       #49454F;
+  --tag-color:    #CAC4D0;
+}
+
+/* ─── Reset & base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--md-background);
+  color: var(--md-on-background);
+  line-height: 1.6;
+  transition: background .2s, color .2s;
+}
+a { color: var(--wr-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Top bar ──────────────────────────────────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+  background: var(--md-background);
+  border-bottom: 1px solid var(--md-outline-variant);
+  backdrop-filter: blur(8px);
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.topbar-logo {
+  width: 28px; height: 28px;
+  background: var(--md-primary);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--md-on-primary);
+  font-size: 14px; font-weight: 700;
+}
+.topbar-title { font-size: 15px; font-weight: 600; color: var(--md-on-surface); }
+.topbar-subtitle { font-size: 12px; color: var(--md-on-surface-variant); margin-left: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; letter-spacing: .3px;
+  background: var(--badge-bg); color: var(--badge-color);
+}
+.theme-toggle {
+  display: flex; gap: 2px;
+  background: var(--md-surface-variant); border-radius: 100px; padding: 3px;
+}
+.theme-toggle button {
+  padding: 5px 14px; border: none; border-radius: 100px;
+  cursor: pointer; font-size: 12px; font-weight: 500;
+  background: transparent; color: var(--md-on-surface-variant);
+  font-family: inherit; transition: all .15s;
+}
+.theme-toggle button.active {
+  background: var(--md-primary); color: var(--md-on-primary);
+}
+
+/* ─── Layout ───────────────────────────────────────────────────────────── */
+.layout { display: flex; min-height: calc(100vh - 56px); }
+
+/* ─── Sidebar nav ──────────────────────────────────────────────────────── */
+.sidebar {
+  width: 240px; flex-shrink: 0;
+  position: sticky; top: 56px; height: calc(100vh - 56px);
+  overflow-y: auto; padding: 24px 0;
+  background: var(--nav-bg);
+  border-right: 1px solid var(--nav-border);
+}
+.nav-group { margin-bottom: 8px; }
+.nav-group-label {
+  padding: 4px 20px 6px;
+  font-size: 10px; font-weight: 600; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--md-on-surface-variant);
+}
+.nav-link {
+  display: block; padding: 6px 20px;
+  font-size: 13px; color: var(--md-on-surface-variant);
+  text-decoration: none; transition: all .12s;
+  border-left: 2px solid transparent;
+}
+.nav-link:hover {
+  color: var(--md-primary);
+  background: rgba(103,80,164,.06);
+  border-left-color: var(--md-primary);
+  text-decoration: none;
+}
+.nav-link.active {
+  color: var(--md-primary); font-weight: 500;
+  border-left-color: var(--md-primary);
+  background: rgba(103,80,164,.08);
+}
+
+/* ─── Main content ─────────────────────────────────────────────────────── */
+.main { flex: 1; padding: 48px 56px 80px; max-width: 900px; }
+
+/* ─── Section ──────────────────────────────────────────────────────────── */
+.section { margin-bottom: 72px; scroll-margin-top: 80px; }
+.section-head { margin-bottom: 32px; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--md-primary);
+  margin-bottom: 6px;
+}
+.section-title { font-size: 24px; font-weight: 600; color: var(--md-on-surface); }
+.section-desc { font-size: 14px; color: var(--md-on-surface-variant); margin-top: 6px; line-height: 1.6; }
+.divider { border: none; border-top: 1px solid var(--md-outline-variant); margin: 40px 0; }
+
+/* ─── Subsection ───────────────────────────────────────────────────────── */
+.subsection { margin-bottom: 36px; }
+.subsection-title {
+  font-size: 13px; font-weight: 600; letter-spacing: .2px;
+  text-transform: uppercase; color: var(--md-on-surface-variant);
+  margin-bottom: 16px;
+}
+
+/* ─── Token table ──────────────────────────────────────────────────────── */
+.token-table { width: 100%; border-collapse: collapse; }
+.token-table th {
+  text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--md-on-surface-variant);
+  padding: 0 0 10px; border-bottom: 1px solid var(--md-outline-variant);
+}
+.token-table td {
+  padding: 12px 0; border-bottom: 1px solid var(--md-outline-variant);
+  font-size: 13px; vertical-align: middle;
+}
+.token-table td:first-child { width: 40%; }
+.token-swatch-row { display: flex; align-items: center; gap: 10px; }
+.token-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--md-outline-variant); flex-shrink: 0; }
+.token-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--md-on-surface); }
+.token-hex  { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--md-on-surface-variant); }
+.token-desc { font-size: 12px; color: var(--md-on-surface-variant); }
+.color-role-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 100px;
+  font-size: 11px; font-weight: 500;
+  background: var(--tag-bg); color: var(--tag-color);
+  margin-left: 6px;
+}
+
+/* ─── Color palette grid ───────────────────────────────────────────────── */
+.palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.palette-chip { border-radius: 10px; overflow: hidden; border: 1px solid var(--md-outline-variant); }
+.palette-swatch { height: 60px; }
+.palette-info { padding: 8px 10px; background: var(--md-surface); }
+.palette-name { font-size: 11px; font-weight: 500; color: var(--md-on-surface); }
+.palette-hex  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--md-on-surface-variant); margin-top: 1px; }
+
+/* ─── Color pair ───────────────────────────────────────────────────────── */
+.pair-group { display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; }
+.pair-group-label { font-size: 11px; font-weight: 600; color: var(--md-on-surface-variant); margin-bottom: 4px; }
+.pair-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+.pair {
+  display: flex; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--md-outline-variant);
+}
+.pair-item { flex: 1; padding: 12px 14px; }
+.pair-name { font-size: 12px; font-weight: 500; }
+.pair-hex  { font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: .75; margin-top: 2px; }
+
+/* ─── Shape scale ──────────────────────────────────────────────────────── */
+.shape-grid { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
+.shape-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.shape-box { width: 80px; height: 80px; background: var(--md-primary-container); border: 2px solid var(--md-primary); }
+.shape-label { font-size: 12px; font-weight: 500; color: var(--md-on-surface); }
+.shape-sub   { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-on-surface-variant); }
+
+/* ─── Typography table ─────────────────────────────────────────────────── */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table th {
+  text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--md-on-surface-variant);
+  padding: 0 0 10px; border-bottom: 1px solid var(--md-outline-variant);
+}
+.type-table td {
+  padding: 14px 16px 14px 0; border-bottom: 1px solid var(--md-outline-variant);
+  vertical-align: middle;
+}
+.type-table td:first-child { width: 180px; }
+.type-token { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-on-surface-variant); }
+.type-spec   { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-on-surface-variant); white-space: nowrap; }
+
+/* ─── Component demo area ──────────────────────────────────────────────── */
+.component-card {
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 12px; overflow: hidden; margin-bottom: 24px;
+}
+.component-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--md-outline-variant);
+  background: var(--md-surface-variant);
+}
+.component-card-title { font-size: 12px; font-weight: 600; color: var(--md-on-surface); }
+.component-card-tag   { font-size: 11px; color: var(--md-on-surface-variant); font-family: 'JetBrains Mono', monospace; }
+.component-demo { padding: 24px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.component-code { padding: 0; }
+pre {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7;
+  background: var(--code-bg); color: var(--md-on-surface);
+  padding: 16px 20px; overflow-x: auto;
+}
+.kw   { color: #7C6FCD; font-weight: 500; }     /* keyword */
+.fn   { color: #AD7FA8; }                         /* function call */
+.str  { color: #4E9A06; }                         /* string */
+[data-theme="dark"] .kw  { color: #D0BCFF; }
+[data-theme="dark"] .fn  { color: #CCC2DC; }
+[data-theme="dark"] .str { color: #A8D5A2; }
+
+/* ─── M3 Buttons ───────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px; border: none; cursor: pointer;
+  font-size: 14px; font-weight: 500; letter-spacing: .1px;
+  font-family: 'Inter', inherit; border-radius: 100px; transition: all .15s;
+}
+.btn svg { width: 18px; height: 18px; }
+.btn-filled    { background: var(--md-primary); color: var(--md-on-primary); }
+.btn-filled:hover { filter: brightness(1.08); }
+.btn-tonal     { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.btn-tonal:hover { filter: brightness(.96); }
+.btn-outlined  { background: transparent; color: var(--md-primary); border: 1px solid var(--md-outline); }
+.btn-outlined:hover { background: rgba(103,80,164,.08); }
+.btn-text      { background: transparent; color: var(--md-primary); padding: 10px 12px; }
+.btn-text:hover { background: rgba(103,80,164,.08); }
+.btn-elevated  { background: var(--md-surface); color: var(--md-primary); box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.btn-elevated:hover { box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+.btn-destructive { background: var(--md-error); color: var(--md-on-error); }
+.btn-destructive:hover { filter: brightness(1.08); }
+
+/* ─── FAB ──────────────────────────────────────────────────────────────── */
+.fab {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px; border: none; cursor: pointer; border-radius: 16px;
+  font-family: inherit; font-size: 14px; font-weight: 500; transition: all .15s;
+}
+.fab svg { width: 24px; height: 24px; }
+.fab-primary  { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.fab-surface  { background: var(--md-surface); color: var(--md-primary); box-shadow: 0 3px 8px rgba(0,0,0,.2); }
+.fab-extended { padding: 16px 20px; border-radius: 16px; background: var(--md-primary-container); color: var(--md-on-primary-container); }
+
+/* ─── Chips ────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: 500;
+  font-family: inherit; cursor: pointer; transition: all .15s; border: none;
+}
+.chip-assist     { background: var(--md-surface); color: var(--md-on-surface); border: 1px solid var(--md-outline-variant); }
+.chip-assist:hover { background: var(--md-surface-variant); }
+.chip-filter     { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.chip-input      { background: var(--md-surface-variant); color: var(--md-on-surface-variant); }
+.chip-suggestion { background: transparent; color: var(--md-on-surface); border: 1px solid var(--md-outline-variant); }
+
+/* ─── Text fields ──────────────────────────────────────────────────────── */
+.field-group { display: flex; gap: 16px; flex-wrap: wrap; }
+.field-wrapper { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 200px; }
+.field-label { font-size: 12px; font-weight: 500; color: var(--md-on-surface-variant); }
+.field-filled, .field-outlined {
+  height: 56px; width: 100%; font-size: 16px; font-family: inherit;
+  color: var(--md-on-surface); outline: none; transition: all .15s;
+}
+.field-filled {
+  background: var(--md-surface-variant);
+  border: none; border-bottom: 1px solid var(--md-on-surface-variant);
+  border-radius: 4px 4px 0 0; padding: 16px 16px 4px;
+}
+.field-filled:focus { border-bottom: 2px solid var(--md-primary); }
+.field-outlined {
+  background: transparent; border: 1px solid var(--md-outline);
+  border-radius: 4px; padding: 0 16px;
+}
+.field-outlined:focus { border: 2px solid var(--md-primary); }
+
+/* ─── Cards ────────────────────────────────────────────────────────────── */
+.card {
+  border-radius: 12px; padding: 16px; width: 200px;
+  font-size: 14px; display: flex; flex-direction: column; gap: 8px;
+}
+.card-elevated { background: var(--md-surface); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.card-filled   { background: var(--md-surface-variant); }
+.card-outlined { background: transparent; border: 1px solid var(--md-outline-variant); }
+.card-title    { font-size: 14px; font-weight: 600; color: var(--md-on-surface); }
+.card-body     { font-size: 12px; color: var(--md-on-surface-variant); line-height: 1.5; }
+.card-action   { margin-top: 4px; }
+
+/* ─── Switch ───────────────────────────────────────────────────────────── */
+.switch-group { display: flex; align-items: center; gap: 12px; }
+.switch { position: relative; width: 52px; height: 32px; display: inline-block; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch-track {
+  position: absolute; inset: 0; border-radius: 100px; cursor: pointer;
+  background: var(--md-surface-variant); border: 2px solid var(--md-outline);
+  transition: .2s;
+}
+.switch-track::after {
+  content: ''; position: absolute; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--md-outline);
+  top: 6px; left: 6px; transition: .2s;
+}
+.switch input:checked + .switch-track { background: var(--md-primary); border-color: var(--md-primary); }
+.switch input:checked + .switch-track::after { transform: translateX(20px); background: var(--md-on-primary); width: 24px; height: 24px; top: 2px; left: 2px; }
+.switch-label { font-size: 14px; color: var(--md-on-surface); }
+
+/* ─── Navigation bar ───────────────────────────────────────────────────── */
+.nav-bar {
+  display: flex; background: var(--md-surface-variant);
+  border-radius: 12px; padding: 12px; gap: 4px;
+  width: fit-content;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 4px 20px; border-radius: 100px; gap: 4px; cursor: pointer;
+  font-size: 12px; font-weight: 500; color: var(--md-on-surface-variant);
+  transition: all .15s; min-width: 64px;
+}
+.nav-item svg { width: 24px; height: 24px; }
+.nav-item.active {
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+}
+
+/* ─── Dialog ───────────────────────────────────────────────────────────── */
+.dialog-preview {
+  border: 1px solid var(--md-outline-variant); border-radius: 16px;
+  padding: 24px; width: 360px; max-width: 100%;
+  background: var(--md-surface); color: var(--md-on-surface);
+}
+.dialog-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+.dialog-body  { font-size: 14px; color: var(--md-on-surface-variant); margin-bottom: 20px; line-height: 1.6; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* ─── Progress ─────────────────────────────────────────────────────────── */
+.progress-track {
+  height: 4px; background: var(--md-secondary-container); border-radius: 100px; width: 280px; overflow: hidden;
+}
+.progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; }
+.circular-progress {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 4px solid var(--md-secondary-container);
+  border-top-color: var(--md-primary);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Badge ────────────────────────────────────────────────────────────── */
+.badge-demo { display: flex; gap: 24px; align-items: center; }
+.badge-container { position: relative; display: inline-flex; }
+.badge-dot {
+  position: absolute; top: -3px; right: -3px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--md-error); border: 2px solid var(--md-surface);
+}
+.badge-count {
+  position: absolute; top: -8px; right: -8px;
+  min-width: 18px; height: 18px; border-radius: 100px;
+  background: var(--md-error); color: var(--md-on-error);
+  font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  padding: 0 5px; border: 2px solid var(--md-surface);
+}
+.icon-box {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--md-surface-variant); display: flex; align-items: center; justify-content: center;
+}
+.icon-box svg { width: 22px; height: 22px; color: var(--md-on-surface-variant); }
+
+/* ─── List items ───────────────────────────────────────────────────────── */
+.list { border: 1px solid var(--md-outline-variant); border-radius: 12px; overflow: hidden; width: 100%; max-width: 400px; }
+.list-item {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  font-size: 14px; color: var(--md-on-surface);
+  border-bottom: 1px solid var(--md-outline-variant); cursor: pointer;
+  transition: background .12s;
+}
+.list-item:last-child { border-bottom: none; }
+.list-item:hover { background: var(--md-surface-variant); }
+.list-item.selected { background: var(--wr-selected-bg); }
+.list-item-icon { width: 24px; height: 24px; color: var(--md-on-surface-variant); flex-shrink: 0; }
+.list-item-content { flex: 1; }
+.list-item-title { font-size: 14px; font-weight: 500; }
+.list-item-sub   { font-size: 12px; color: var(--md-on-surface-variant); margin-top: 1px; }
+.list-item-trail { font-size: 12px; color: var(--md-on-surface-variant); }
+
+/* ─── Snackbar ─────────────────────────────────────────────────────────── */
+.snackbar {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px 16px; border-radius: 4px;
+  background: var(--md-inverse-surface); color: var(--md-inverse-on-surface);
+  font-size: 14px; max-width: 400px; width: 100%;
+}
+.snackbar-action { font-size: 14px; font-weight: 600; color: var(--md-inverse-primary); cursor: pointer; white-space: nowrap; }
+
+/* ─── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 32px 20px 60px; }
+  .topbar { padding: 0 16px; }
+  .topbar-subtitle { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Top bar ─────────────────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">W</div>
+    <div>
+      <span class="topbar-title">Writeopia</span>
+      <span class="topbar-subtitle"> / Design System</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge">M3 Baseline</span>
+    <div class="theme-toggle">
+      <button class="active" onclick="setTheme('light')">Light</button>
+      <button onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- ─── Sidebar navigation ──────────────────────────────────────────────── -->
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <a class="nav-link active" href="#intro">Introduction</a>
+    <a class="nav-link" href="#how-to-use">How to use</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Foundations</div>
+    <a class="nav-link" href="#colors">Color</a>
+    <a class="nav-link" href="#semantic">Semantic tokens</a>
+    <a class="nav-link" href="#typography">Typography</a>
+    <a class="nav-link" href="#shape">Shape</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Components</div>
+    <a class="nav-link" href="#buttons">Buttons</a>
+    <a class="nav-link" href="#fab">FAB</a>
+    <a class="nav-link" href="#chips">Chips</a>
+    <a class="nav-link" href="#text-fields">Text Fields</a>
+    <a class="nav-link" href="#cards">Cards</a>
+    <a class="nav-link" href="#list">List Items</a>
+    <a class="nav-link" href="#switch">Switch</a>
+    <a class="nav-link" href="#nav-bar">Navigation Bar</a>
+    <a class="nav-link" href="#dialog">Dialog</a>
+    <a class="nav-link" href="#snackbar">Snackbar</a>
+    <a class="nav-link" href="#progress">Progress</a>
+    <a class="nav-link" href="#badge">Badge</a>
+  </div>
+</nav>
+
+<!-- ─── Main ─────────────────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- ── Introduction ─────────────────────────────────────────────────── -->
+  <section class="section" id="intro">
+    <div class="section-head">
+      <div class="section-eyebrow">Design System</div>
+      <h1 class="section-title">Writeopia UI</h1>
+      <p class="section-desc">
+        A Kotlin Multiplatform (KMP) design system built on top of
+        <strong>Material Design 3 baseline</strong>. Targets Android, iOS, Desktop (JVM), and Web
+        (JS/WASM) through Compose Multiplatform. All tokens are derived from the
+        <a href="https://m3.material.io" target="_blank">M3 specification</a> and exposed via
+        <code>WriteopiaTheme</code>.
+      </p>
+    </div>
+    <div class="pair-grid">
+      <div class="pair">
+        <div class="pair-item" style="background:#6750A4;">
+          <div class="pair-name" style="color:#fff;">Primary</div>
+          <div class="pair-hex" style="color:rgba(255,255,255,.7);">#6750A4</div>
+        </div>
+        <div class="pair-item" style="background:#E8DEF8;">
+          <div class="pair-name" style="color:#1D192B;">Secondary Container</div>
+          <div class="pair-hex" style="color:rgba(0,0,0,.5);">#E8DEF8</div>
+        </div>
+        <div class="pair-item" style="background:#FFFBFE;">
+          <div class="pair-name" style="color:#1C1B1F;">Background</div>
+          <div class="pair-hex" style="color:rgba(0,0,0,.4);">#FFFBFE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How to use ────────────────────────────────────────────────────── -->
+  <section class="section" id="how-to-use">
+    <div class="section-head">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2 class="section-title">How to use</h2>
+      <p class="section-desc">Wrap your root composable with <code>WriteopiaTheme</code>. It injects both the M3 <code>MaterialTheme</code> and the custom <code>WriteopiaColors</code> semantic layer.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Theme setup</span>
+        <span class="component-card-tag">Theme.kt</span>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">@Composable</span>
+<span class="kw">fun</span> <span class="fn">App</span>() {
+    <span class="fn">WriteopiaTheme</span> {
+        <span class="fn">YourContent</span>()
+    }
+}
+
+<span class="kw">// Access M3 tokens</span>
+<span class="kw">val</span> primary = MaterialTheme.colorScheme.primary
+
+<span class="kw">// Access Writeopia semantic tokens</span>
+<span class="kw">val</span> colors = WriteopiaTheme.colorScheme
+<span class="kw">val</span> bg     = colors.globalBackground</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Colors ────────────────────────────────────────────────────────── -->
+  <section class="section" id="colors">
+    <div class="section-head">
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Color</h2>
+      <p class="section-desc">28-token M3 baseline palette. Switch between light and dark using the toggle above — these values mirror <code>Theme.kt</code> exactly.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Primary</div>
+      <div class="pair-grid">
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-primary);">
+            <div class="pair-name" style="color:var(--md-on-primary);">primary</div>
+            <div class="pair-hex" style="color:var(--md-on-primary);opacity:.75;" id="c-primary"></div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-primary); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-primary);">onPrimary</div>
+            <div class="pair-hex" style="color:var(--md-primary);opacity:.75;" id="c-on-primary"></div>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-primary-container);">
+            <div class="pair-name" style="color:var(--md-on-primary-container);">primaryContainer</div>
+            <div class="pair-hex" style="color:var(--md-on-primary-container);opacity:.75;" id="c-pc"></div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-primary-container); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-primary-container);">onPrimaryContainer</div>
+            <div class="pair-hex" style="color:var(--md-primary-container);opacity:.75;" id="c-opc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Secondary</div>
+      <div class="pair-grid">
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-secondary);">
+            <div class="pair-name" style="color:var(--md-on-secondary);">secondary</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-secondary); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-secondary);">onSecondary</div>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-secondary-container);">
+            <div class="pair-name" style="color:var(--md-on-secondary-container);">secondaryContainer</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-secondary-container); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-secondary-container);">onSecondaryContainer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Tertiary</div>
+      <div class="pair-grid">
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-tertiary);">
+            <div class="pair-name" style="color:var(--md-on-tertiary);">tertiary</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-tertiary); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-tertiary);">onTertiary</div>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-tertiary-container);">
+            <div class="pair-name" style="color:var(--md-on-tertiary-container);">tertiaryContainer</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-tertiary-container); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-tertiary-container);">onTertiaryContainer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Error</div>
+      <div class="pair-grid">
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-error);">
+            <div class="pair-name" style="color:var(--md-on-error);">error</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-error); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-error);">onError</div>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-item" style="background:var(--md-error-container);">
+            <div class="pair-name" style="color:var(--md-on-error-container);">errorContainer</div>
+          </div>
+          <div class="pair-item" style="background:var(--md-on-error-container); border-left:1px solid var(--md-outline-variant);">
+            <div class="pair-name" style="color:var(--md-error-container);">onErrorContainer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Surface & Background</div>
+      <div class="palette-grid">
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-background);border-bottom:1px solid var(--md-outline-variant);"></div>
+          <div class="palette-info"><div class="palette-name">background</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-on-background);"></div>
+          <div class="palette-info"><div class="palette-name">onBackground</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-surface);border-bottom:1px solid var(--md-outline-variant);"></div>
+          <div class="palette-info"><div class="palette-name">surface</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-on-surface);"></div>
+          <div class="palette-info"><div class="palette-name">onSurface</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-surface-variant);"></div>
+          <div class="palette-info"><div class="palette-name">surfaceVariant</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-on-surface-variant);"></div>
+          <div class="palette-info"><div class="palette-name">onSurfaceVariant</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-outline);"></div>
+          <div class="palette-info"><div class="palette-name">outline</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-outline-variant);border-bottom:1px solid var(--md-on-surface-variant);"></div>
+          <div class="palette-info"><div class="palette-name">outlineVariant</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-inverse-surface);"></div>
+          <div class="palette-info"><div class="palette-name">inverseSurface</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-inverse-on-surface);border-bottom:1px solid var(--md-outline-variant);"></div>
+          <div class="palette-info"><div class="palette-name">inverseOnSurface</div></div>
+        </div>
+        <div class="palette-chip">
+          <div class="palette-swatch" style="background:var(--md-inverse-primary);"></div>
+          <div class="palette-info"><div class="palette-name">inversePrimary</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Semantic tokens ───────────────────────────────────────────────── -->
+  <section class="section" id="semantic">
+    <div class="section-head">
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Semantic tokens</h2>
+      <p class="section-desc">
+        <code>WriteopiaColors</code> is a custom semantic layer on top of M3 accessed via
+        <code>WriteopiaTheme.colorScheme</code>. Use these tokens to stay consistent across the
+        app without reaching into raw M3 roles.
+      </p>
+    </div>
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Light</th>
+          <th>Dark</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="token-name">globalBackground</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#FFFBFE;border:1px solid #CAC4D0;"></div><span class="token-hex">#FFFBFE</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#1C1B1F;"></div><span class="token-hex">#1C1B1F</span></div></td>
+          <td class="token-desc">App-wide canvas background</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">lightBackground</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#E7E0EC;"></div><span class="token-hex">#E7E0EC</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#49454F;"></div><span class="token-hex">#49454F</span></div></td>
+          <td class="token-desc">Sidebar, panel backgrounds</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">textLight</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#1C1B1F;"></div><span class="token-hex">#1C1B1F</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#E6E1E5;"></div><span class="token-hex">#E6E1E5</span></div></td>
+          <td class="token-desc">Primary text color</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">textLighter</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#49454F;"></div><span class="token-hex">#49454F</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#CAC4D0;"></div><span class="token-hex">#CAC4D0</span></div></td>
+          <td class="token-desc">Secondary / subdued text</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">highlight</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#E7E0EC;"></div><span class="token-hex">#E7E0EC</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#49454F;"></div><span class="token-hex">#49454F</span></div></td>
+          <td class="token-desc">Hover / highlight surfaces</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">selectedBg</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:rgba(234,221,255,0.5);"></div><span class="token-hex">primaryContainer 50%</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:rgba(79,55,139,0.35);"></div><span class="token-hex">primaryContainer 35%</span></div></td>
+          <td class="token-desc">Selected list item background</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">dividerColor</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#CAC4D0;"></div><span class="token-hex">#CAC4D0</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#49454F;"></div><span class="token-hex">#49454F</span></div></td>
+          <td class="token-desc">Horizontal/vertical dividers</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">linkColor</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#6750A4;"></div><span class="token-hex">#6750A4</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#D0BCFF;"></div><span class="token-hex">#D0BCFF</span></div></td>
+          <td class="token-desc">Hyperlinks and inline actions</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">defaultButton</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#6750A4;"></div><span class="token-hex">#6750A4</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#D0BCFF;"></div><span class="token-hex">#D0BCFF</span></div></td>
+          <td class="token-desc">Default/fallback button color</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">cardBg</span></td>
+          <td><div class="token-swatch-row"><span class="token-hex">surfaceContainer</span></div></td>
+          <td><div class="token-swatch-row"><span class="token-hex">surfaceContainer</span></div></td>
+          <td class="token-desc">Note card background color</td>
+        </tr>
+        <tr>
+          <td><span class="token-name">searchBackground</span></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#FFFBFE;border:1px solid #CAC4D0;"></div><span class="token-hex">#FFFBFE</span></div></td>
+          <td><div class="token-swatch-row"><div class="token-swatch" style="background:#49454F;"></div><span class="token-hex">#49454F</span></div></td>
+          <td class="token-desc">Search bar input background</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── Typography ────────────────────────────────────────────────────── -->
+  <section class="section" id="typography">
+    <div class="section-head">
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Typography</h2>
+      <p class="section-desc">Full M3 type scale — 15 styles. Font: <strong>Roboto</strong> (system default on Android, KMP default elsewhere). Defined in <code>Type.kt</code> and applied via <code>MaterialTheme.typography</code>.</p>
+    </div>
+    <table class="type-table">
+      <thead>
+        <tr><th>Token</th><th>Sample</th><th>Spec</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="type-token">displayLarge</span></td><td><span style="font-size:57px;font-weight:400;line-height:64px;letter-spacing:-0.25px;">Aa</span></td><td><span class="type-spec">57sp · 64sp · -0.25sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">displayMedium</span></td><td><span style="font-size:45px;font-weight:400;line-height:52px;">Aa</span></td><td><span class="type-spec">45sp · 52sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">displaySmall</span></td><td><span style="font-size:36px;font-weight:400;line-height:44px;">Aa</span></td><td><span class="type-spec">36sp · 44sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">headlineLarge</span></td><td><span style="font-size:32px;font-weight:400;line-height:40px;">Aa</span></td><td><span class="type-spec">32sp · 40sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">headlineMedium</span></td><td><span style="font-size:28px;font-weight:400;line-height:36px;">Aa</span></td><td><span class="type-spec">28sp · 36sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">headlineSmall</span></td><td><span style="font-size:24px;font-weight:400;line-height:32px;">Aa</span></td><td><span class="type-spec">24sp · 32sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">titleLarge</span></td><td><span style="font-size:22px;font-weight:400;line-height:28px;">Title Large</span></td><td><span class="type-spec">22sp · 28sp · 0sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">titleMedium</span></td><td><span style="font-size:16px;font-weight:500;line-height:24px;letter-spacing:.15px;">Title Medium</span></td><td><span class="type-spec">16sp · 24sp · 0.15sp · Medium</span></td></tr>
+        <tr><td><span class="type-token">titleSmall</span></td><td><span style="font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;">Title Small</span></td><td><span class="type-spec">14sp · 20sp · 0.1sp · Medium</span></td></tr>
+        <tr><td><span class="type-token">bodyLarge</span></td><td><span style="font-size:16px;font-weight:400;line-height:24px;letter-spacing:.5px;">Body Large text sample</span></td><td><span class="type-spec">16sp · 24sp · 0.5sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">bodyMedium</span></td><td><span style="font-size:14px;font-weight:400;line-height:20px;letter-spacing:.25px;">Body Medium text sample</span></td><td><span class="type-spec">14sp · 20sp · 0.25sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">bodySmall</span></td><td><span style="font-size:12px;font-weight:400;line-height:16px;letter-spacing:.4px;">Body Small text sample</span></td><td><span class="type-spec">12sp · 16sp · 0.4sp · Regular</span></td></tr>
+        <tr><td><span class="type-token">labelLarge</span></td><td><span style="font-size:14px;font-weight:500;line-height:20px;letter-spacing:.1px;">Label Large</span></td><td><span class="type-spec">14sp · 20sp · 0.1sp · Medium</span></td></tr>
+        <tr><td><span class="type-token">labelMedium</span></td><td><span style="font-size:12px;font-weight:500;line-height:16px;letter-spacing:.5px;">Label Medium</span></td><td><span class="type-spec">12sp · 16sp · 0.5sp · Medium</span></td></tr>
+        <tr><td><span class="type-token">labelSmall</span></td><td><span style="font-size:11px;font-weight:500;line-height:16px;letter-spacing:.5px;">Label Small</span></td><td><span class="type-spec">11sp · 16sp · 0.5sp · Medium</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── Shape ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="shape">
+    <div class="section-head">
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Shape</h2>
+      <p class="section-desc">M3 baseline shape scale. Applied via <code>MaterialTheme.shapes</code>. Defined in <code>Shape.kt</code>.</p>
+    </div>
+    <div class="shape-grid">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px;"></div>
+        <div class="shape-label">extraSmall</div>
+        <div class="shape-sub">4 dp</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px;"></div>
+        <div class="shape-label">small</div>
+        <div class="shape-sub">8 dp</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px;"></div>
+        <div class="shape-label">medium</div>
+        <div class="shape-sub">12 dp</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px;"></div>
+        <div class="shape-label">large</div>
+        <div class="shape-sub">16 dp</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:28px;"></div>
+        <div class="shape-label">extraLarge</div>
+        <div class="shape-sub">28 dp</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Buttons ───────────────────────────────────────────────────────── -->
+  <section class="section" id="buttons">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Buttons</h2>
+      <p class="section-desc">
+        <code>WButton</code> wraps all five M3 button roles plus a Destructive variant for
+        error-state actions. Use <code>WButtonVariant</code> to select the emphasis level.
+      </p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">All variants</span>
+        <span class="component-card-tag">WButton.kt</span>
+      </div>
+      <div class="component-demo">
+        <button class="btn btn-filled">Filled</button>
+        <button class="btn btn-tonal">Tonal</button>
+        <button class="btn btn-outlined">Outlined</button>
+        <button class="btn btn-text">Text</button>
+        <button class="btn btn-elevated">Elevated</button>
+        <button class="btn btn-destructive">Destructive</button>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">// WButtonVariant</span>
+<span class="fn">WButton</span>(text = <span class="str">"Save"</span>, onClick = { },
+    variant = WButtonVariant.<span class="fn">Filled</span>)
+
+<span class="fn">WButton</span>(text = <span class="str">"Cancel"</span>, onClick = { },
+    variant = WButtonVariant.<span class="fn">Tonal</span>)
+
+<span class="fn">WButton</span>(text = <span class="str">"Learn more"</span>, onClick = { },
+    variant = WButtonVariant.<span class="fn">Outlined</span>)
+
+<span class="fn">WButton</span>(text = <span class="str">"Skip"</span>, onClick = { },
+    variant = WButtonVariant.<span class="fn">Text</span>)
+
+<span class="fn">WButton</span>(text = <span class="str">"Delete"</span>, onClick = { },
+    variant = WButtonVariant.<span class="fn">Destructive</span>)</pre>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">With leading icon</span>
+        <span class="component-card-tag">WButton.kt · leadingIcon</span>
+      </div>
+      <div class="component-demo">
+        <button class="btn btn-filled">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          New note
+        </button>
+        <button class="btn btn-outlined">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+          Save
+        </button>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">WButton</span>(
+    text = <span class="str">"New note"</span>,
+    onClick = { },
+    variant = WButtonVariant.<span class="fn">Filled</span>,
+    leadingIcon = Icons.Default.<span class="fn">Add</span>,
+    leadingIconDescription = <span class="str">"Add"</span>,
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAB ───────────────────────────────────────────────────────────── -->
+  <section class="section" id="fab">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">FAB</h2>
+      <p class="section-desc">Floating Action Button for primary actions. Use M3 <code>FloatingActionButton</code> or <code>ExtendedFloatingActionButton</code> directly.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Variants</span>
+        <span class="component-card-tag">FloatingActionButton</span>
+      </div>
+      <div class="component-demo">
+        <button class="fab fab-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </button>
+        <button class="fab fab-surface">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </button>
+        <button class="fab fab-extended">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          New
+        </button>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">FloatingActionButton</span>(onClick = { }) {
+    <span class="fn">Icon</span>(Icons.Default.<span class="fn">Add</span>, contentDescription = <span class="str">"Add"</span>)
+}
+
+<span class="fn">ExtendedFloatingActionButton</span>(
+    onClick = { },
+    icon = { <span class="fn">Icon</span>(Icons.Default.<span class="fn">Add</span>, contentDescription = <span class="kw">null</span>) },
+    text = { <span class="fn">Text</span>(<span class="str">"New"</span>) }
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Chips ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="chips">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Chips</h2>
+      <p class="section-desc">Four chip roles: Assist, Filter, Input, Suggestion. Use M3 <code>AssistChip</code>, <code>FilterChip</code>, <code>InputChip</code>, <code>SuggestionChip</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Chip roles</span>
+        <span class="component-card-tag">*Chip</span>
+      </div>
+      <div class="component-demo">
+        <button class="chip chip-assist">Assist</button>
+        <button class="chip chip-filter">✓ Filter</button>
+        <button class="chip chip-input">Input ✕</button>
+        <button class="chip chip-suggestion">Suggestion</button>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">AssistChip</span>(onClick = { }, label = { <span class="fn">Text</span>(<span class="str">"Assist"</span>) })
+
+<span class="fn">FilterChip</span>(selected = <span class="kw">true</span>, onClick = { }, label = { <span class="fn">Text</span>(<span class="str">"Filter"</span>) })
+
+<span class="fn">InputChip</span>(selected = <span class="kw">false</span>, onClick = { }, label = { <span class="fn">Text</span>(<span class="str">"Input"</span>) })
+
+<span class="fn">SuggestionChip</span>(onClick = { }, label = { <span class="fn">Text</span>(<span class="str">"Suggestion"</span>) })</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Text Fields ───────────────────────────────────────────────────── -->
+  <section class="section" id="text-fields">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Text Fields</h2>
+      <p class="section-desc">Filled and Outlined variants. Use M3 <code>TextField</code> and <code>OutlinedTextField</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Filled &amp; Outlined</span>
+        <span class="component-card-tag">TextField · OutlinedTextField</span>
+      </div>
+      <div class="component-demo">
+        <div class="field-group" style="width:100%">
+          <div class="field-wrapper">
+            <label class="field-label">Filled</label>
+            <input class="field-filled" type="text" placeholder="Enter text…" />
+          </div>
+          <div class="field-wrapper">
+            <label class="field-label">Outlined</label>
+            <input class="field-outlined" type="text" placeholder="Enter text…" />
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">var</span> text <span class="kw">by</span> <span class="fn">remember</span> { <span class="fn">mutableStateOf</span>(<span class="str">""</span>) }
+
+<span class="fn">TextField</span>(
+    value = text,
+    onValueChange = { text = it },
+    label = { <span class="fn">Text</span>(<span class="str">"Label"</span>) }
+)
+
+<span class="fn">OutlinedTextField</span>(
+    value = text,
+    onValueChange = { text = it },
+    label = { <span class="fn">Text</span>(<span class="str">"Label"</span>) }
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cards ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="cards">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Cards</h2>
+      <p class="section-desc">Three card styles: Elevated (default shadow), Filled (surface variant), Outlined (border only). Use M3 <code>Card</code>, <code>ElevatedCard</code>, <code>OutlinedCard</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Card variants</span>
+        <span class="component-card-tag">Card · ElevatedCard · OutlinedCard</span>
+      </div>
+      <div class="component-demo">
+        <div class="card card-elevated">
+          <div class="card-title">Elevated</div>
+          <div class="card-body">Default shadow. For primary content surfaces.</div>
+          <div class="card-action"><button class="btn btn-text" style="padding:6px 0;">Action</button></div>
+        </div>
+        <div class="card card-filled">
+          <div class="card-title">Filled</div>
+          <div class="card-body">Surface variant background. No elevation.</div>
+          <div class="card-action"><button class="btn btn-text" style="padding:6px 0;">Action</button></div>
+        </div>
+        <div class="card card-outlined">
+          <div class="card-title">Outlined</div>
+          <div class="card-body">Subtle border. Low emphasis container.</div>
+          <div class="card-action"><button class="btn btn-text" style="padding:6px 0;">Action</button></div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">ElevatedCard</span>(modifier = Modifier.<span class="fn">width</span>(200.dp)) {
+    <span class="fn">Text</span>(<span class="str">"Elevated"</span>, style = MaterialTheme.typography.titleMedium)
+    <span class="fn">Text</span>(<span class="str">"Content"</span>, style = MaterialTheme.typography.bodyMedium)
+}
+
+<span class="fn">OutlinedCard</span>(modifier = Modifier.<span class="fn">width</span>(200.dp)) {
+    <span class="fn">Text</span>(<span class="str">"Outlined"</span>)
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── List Items ────────────────────────────────────────────────────── -->
+  <section class="section" id="list">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">List Items</h2>
+      <p class="section-desc">Use M3 <code>ListItem</code>. The selected state uses <code>WriteopiaTheme.colorScheme.selectedBg</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">List with selected state</span>
+        <span class="component-card-tag">ListItem</span>
+      </div>
+      <div class="component-demo">
+        <div class="list">
+          <div class="list-item selected">
+            <svg class="list-item-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+            <div class="list-item-content">
+              <div class="list-item-title">Design tokens</div>
+              <div class="list-item-sub">Updated 2 min ago</div>
+            </div>
+            <div class="list-item-trail">•••</div>
+          </div>
+          <div class="list-item">
+            <svg class="list-item-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+            <div class="list-item-content">
+              <div class="list-item-title">Component library</div>
+              <div class="list-item-sub">Updated 1 hr ago</div>
+            </div>
+            <div class="list-item-trail">•••</div>
+          </div>
+          <div class="list-item">
+            <svg class="list-item-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+            <div class="list-item-content">
+              <div class="list-item-title">Meeting notes</div>
+              <div class="list-item-sub">Updated yesterday</div>
+            </div>
+            <div class="list-item-trail">•••</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">ListItem</span>(
+    headlineContent = { <span class="fn">Text</span>(<span class="str">"Design tokens"</span>) },
+    supportingContent = { <span class="fn">Text</span>(<span class="str">"Updated 2 min ago"</span>) },
+    leadingContent = {
+        <span class="fn">Icon</span>(Icons.Default.<span class="fn">Description</span>, contentDescription = <span class="kw">null</span>)
+    },
+    modifier = Modifier.<span class="fn">background</span>(WriteopiaTheme.colorScheme.selectedBg)
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Switch ────────────────────────────────────────────────────────── -->
+  <section class="section" id="switch">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Switch</h2>
+      <p class="section-desc">Toggle binary states. Use M3 <code>Switch</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Switch</span>
+        <span class="component-card-tag">Switch</span>
+      </div>
+      <div class="component-demo">
+        <div class="switch-group">
+          <label class="switch">
+            <input type="checkbox" />
+            <span class="switch-track"></span>
+          </label>
+          <span class="switch-label">Off</span>
+        </div>
+        <div class="switch-group">
+          <label class="switch">
+            <input type="checkbox" checked />
+            <span class="switch-track"></span>
+          </label>
+          <span class="switch-label">On</span>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">var</span> checked <span class="kw">by</span> <span class="fn">remember</span> { <span class="fn">mutableStateOf</span>(<span class="kw">false</span>) }
+
+<span class="fn">Switch</span>(
+    checked = checked,
+    onCheckedChange = { checked = it }
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Navigation Bar ────────────────────────────────────────────────── -->
+  <section class="section" id="nav-bar">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Navigation Bar</h2>
+      <p class="section-desc">Bottom navigation for 3–5 top-level destinations. Use M3 <code>NavigationBar</code> + <code>NavigationBarItem</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Navigation Bar</span>
+        <span class="component-card-tag">NavigationBar</span>
+      </div>
+      <div class="component-demo">
+        <div class="nav-bar">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+            Notes
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Done
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            Settings
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">var</span> selected <span class="kw">by</span> <span class="fn">remember</span> { <span class="fn">mutableIntStateOf</span>(0) }
+
+<span class="fn">NavigationBar</span> {
+    <span class="fn">NavigationBarItem</span>(
+        selected = selected == 0,
+        onClick = { selected = 0 },
+        icon = { <span class="fn">Icon</span>(Icons.Default.<span class="fn">Home</span>, contentDescription = <span class="kw">null</span>) },
+        label = { <span class="fn">Text</span>(<span class="str">"Home"</span>) }
+    )
+    <span class="kw">// …more items</span>
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Dialog ────────────────────────────────────────────────────────── -->
+  <section class="section" id="dialog">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Dialog</h2>
+      <p class="section-desc">Confirmation and alert dialogs. Use M3 <code>AlertDialog</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Alert Dialog</span>
+        <span class="component-card-tag">AlertDialog</span>
+      </div>
+      <div class="component-demo">
+        <div class="dialog-preview">
+          <div class="dialog-title">Delete note?</div>
+          <div class="dialog-body">This note will be permanently deleted. You can recover it from Trash within 30 days.</div>
+          <div class="dialog-actions">
+            <button class="btn btn-text" style="padding:8px 12px;font-size:13px;">Cancel</button>
+            <button class="btn btn-destructive" style="padding:8px 20px;font-size:13px;">Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="fn">AlertDialog</span>(
+    onDismissRequest = { showDialog = <span class="kw">false</span> },
+    title = { <span class="fn">Text</span>(<span class="str">"Delete note?"</span>) },
+    text  = { <span class="fn">Text</span>(<span class="str">"This note will be permanently deleted."</span>) },
+    confirmButton = {
+        <span class="fn">WButton</span>(text = <span class="str">"Delete"</span>, onClick = { },
+            variant = WButtonVariant.<span class="fn">Destructive</span>)
+    },
+    dismissButton = {
+        <span class="fn">WButton</span>(text = <span class="str">"Cancel"</span>, onClick = { },
+            variant = WButtonVariant.<span class="fn">Text</span>)
+    }
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Snackbar ──────────────────────────────────────────────────────── -->
+  <section class="section" id="snackbar">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Snackbar</h2>
+      <p class="section-desc">Brief messages with an optional action. Use M3 <code>Snackbar</code> via <code>SnackbarHost</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Snackbar with action</span>
+        <span class="component-card-tag">Snackbar · SnackbarHost</span>
+      </div>
+      <div class="component-demo">
+        <div class="snackbar">
+          Note moved to Trash
+          <span class="snackbar-action">Undo</span>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">val</span> snackbarHostState = <span class="fn">remember</span> { <span class="fn">SnackbarHostState</span>() }
+
+<span class="fn">Scaffold</span>(
+    snackbarHost = { <span class="fn">SnackbarHost</span>(snackbarHostState) }
+) {
+    <span class="kw">// trigger:</span>
+    <span class="fn">LaunchedEffect</span>(Unit) {
+        snackbarHostState.<span class="fn">showSnackbar</span>(
+            message = <span class="str">"Note moved to Trash"</span>,
+            actionLabel = <span class="str">"Undo"</span>
+        )
+    }
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Progress ─────────────────────────────────────────────────────── -->
+  <section class="section" id="progress">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Progress Indicators</h2>
+      <p class="section-desc">Linear and Circular. Use M3 <code>LinearProgressIndicator</code> and <code>CircularProgressIndicator</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Linear &amp; Circular</span>
+        <span class="component-card-tag">LinearProgressIndicator · CircularProgressIndicator</span>
+      </div>
+      <div class="component-demo" style="flex-direction:column;align-items:flex-start;gap:20px;">
+        <div>
+          <div style="font-size:12px;color:var(--md-on-surface-variant);margin-bottom:8px;">Linear — determinate (60%)</div>
+          <div class="progress-track"><div class="progress-fill" style="width:60%;"></div></div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--md-on-surface-variant);margin-bottom:8px;">Linear — indeterminate</div>
+          <div class="progress-track" style="position:relative;overflow:hidden;">
+            <div class="progress-fill" style="width:40%;animation:indeterminate 1.4s linear infinite;"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <div>
+            <div style="font-size:12px;color:var(--md-on-surface-variant);margin-bottom:8px;">Circular</div>
+            <div class="circular-progress"></div>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">// Determinate</span>
+<span class="fn">LinearProgressIndicator</span>(progress = { 0.6f })
+
+<span class="kw">// Indeterminate</span>
+<span class="fn">LinearProgressIndicator</span>()
+
+<span class="kw">// Circular</span>
+<span class="fn">CircularProgressIndicator</span>()</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Badge ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="badge">
+    <div class="section-head">
+      <div class="section-eyebrow">Components</div>
+      <h2 class="section-title">Badge</h2>
+      <p class="section-desc">Notification indicators — dot or count. Use M3 <code>BadgedBox</code>.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-card-header">
+        <span class="component-card-title">Dot &amp; Count</span>
+        <span class="component-card-tag">BadgedBox · Badge</span>
+      </div>
+      <div class="component-demo">
+        <div class="badge-demo">
+          <div class="badge-container">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="badge-dot"></div>
+          </div>
+          <div class="badge-container">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            </div>
+            <div class="badge-count">5</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">
+<pre><span class="kw">// Dot badge</span>
+<span class="fn">BadgedBox</span>(badge = { <span class="fn">Badge</span>() }) {
+    <span class="fn">Icon</span>(Icons.Default.<span class="fn">Email</span>, contentDescription = <span class="str">"Email"</span>)
+}
+
+<span class="kw">// Count badge</span>
+<span class="fn">BadgedBox</span>(badge = { <span class="fn">Badge</span> { <span class="fn">Text</span>(<span class="str">"5"</span>) } }) {
+    <span class="fn">Icon</span>(Icons.Default.<span class="fn">Notifications</span>, contentDescription = <span class="str">"Notifications"</span>)
+}</pre>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<style>
+@keyframes indeterminate {
+  0%   { transform: translateX(-100%); width: 40%; }
+  50%  { width: 60%; }
+  100% { transform: translateX(400%); width: 40%; }
+}
+</style>
+
+<script>
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.theme-toggle button').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === t);
+  });
+}
+
+// Sidebar active link on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
