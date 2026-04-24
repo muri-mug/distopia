@@ -1,0 +1,19 @@
+{
+  "typography": {
+    "displayLarge":   { "$value": { "fontSize": "57", "lineHeight": "64", "letterSpacing": "-0.25", "fontWeight": "400" }, "$type": "typography" },
+    "displayMedium":  { "$value": { "fontSize": "45", "lineHeight": "52", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "displaySmall":   { "$value": { "fontSize": "36", "lineHeight": "44", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "headlineLarge":  { "$value": { "fontSize": "32", "lineHeight": "40", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "headlineMedium": { "$value": { "fontSize": "28", "lineHeight": "36", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "headlineSmall":  { "$value": { "fontSize": "24", "lineHeight": "32", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "titleLarge":     { "$value": { "fontSize": "22", "lineHeight": "28", "letterSpacing": "0",     "fontWeight": "400" }, "$type": "typography" },
+    "titleMedium":    { "$value": { "fontSize": "16", "lineHeight": "24", "letterSpacing": "0.15",  "fontWeight": "500" }, "$type": "typography" },
+    "titleSmall":     { "$value": { "fontSize": "14", "lineHeight": "20", "letterSpacing": "0.1",   "fontWeight": "500" }, "$type": "typography" },
+    "bodyLarge":      { "$value": { "fontSize": "16", "lineHeight": "24", "letterSpacing": "0.5",   "fontWeight": "400" }, "$type": "typography" },
+    "bodyMedium":     { "$value": { "fontSize": "14", "lineHeight": "20", "letterSpacing": "0.25",  "fontWeight": "400" }, "$type": "typography" },
+    "bodySmall":      { "$value": { "fontSize": "12", "lineHeight": "16", "letterSpacing": "0.4",   "fontWeight": "400" }, "$type": "typography" },
+    "labelLarge":     { "$value": { "fontSize": "14", "lineHeight": "20", "letterSpacing": "0.1",   "fontWeight": "500" }, "$type": "typography" },
+    "labelMedium":    { "$value": { "fontSize": "12", "lineHeight": "16", "letterSpacing": "0.5",   "fontWeight": "500" }, "$type": "typography" },
+    "labelSmall":     { "$value": { "fontSize": "11", "lineHeight": "16", "letterSpacing": "0.5",   "fontWeight": "500" }, "$type": "typography" }
+  }
+}

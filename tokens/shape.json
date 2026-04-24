@@ -1,0 +1,9 @@
+{
+  "shape": {
+    "extraSmall": { "$value": "4", "$type": "dimension", "$description": "Chips, inputs, text fields" },
+    "small":      { "$value": "8", "$type": "dimension", "$description": "Small cards, menus" },
+    "medium":     { "$value": "12", "$type": "dimension", "$description": "Cards, modals, sheets" },
+    "large":      { "$value": "16", "$type": "dimension", "$description": "Navigation drawers" },
+    "extraLarge": { "$value": "28", "$type": "dimension", "$description": "FAB, large components" }
+  }
+}

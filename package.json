@@ -1,0 +1,13 @@
+{
+  "name": "distopia",
+  "version": "1.0.0",
+  "description": "Distopia Design System — token pipeline",
+  "type": "module",
+  "scripts": {
+    "build": "node sd.config.mjs",
+    "build:sync": "node sd.config.mjs && node sync.mjs"
+  },
+  "dependencies": {
+    "style-dictionary": "^4.3.3"
+  }
+}

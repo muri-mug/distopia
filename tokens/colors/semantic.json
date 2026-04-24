@@ -1,0 +1,34 @@
+{
+  "writeopia": {
+    "light": {
+      "globalBackground":          { "$value": "#FFFBFE", "$type": "color", "$description": "App canvas background" },
+      "lightBackground":           { "$value": "#E7E0EC", "$type": "color", "$description": "Sidebar / panel background" },
+      "textLight":                 { "$value": "#1C1B1F", "$type": "color", "$description": "Primary text" },
+      "textLighter":               { "$value": "#49454F", "$type": "color", "$description": "Subdued / secondary text" },
+      "highlight":                 { "$value": "#E7E0EC", "$type": "color", "$description": "Hover highlight surface" },
+      "selectedBg":                { "$value": "#80EADDFF", "$type": "color", "$description": "Selected list item (primaryContainer 50%)" },
+      "cardShadow":                { "$value": "#CAC4D0", "$type": "color", "$description": "Card drop shadow" },
+      "dividerColor":              { "$value": "#CAC4D0", "$type": "color", "$description": "Dividers" },
+      "linkColor":                 { "$value": "#6750A4", "$type": "color", "$description": "Hyperlinks and inline actions" },
+      "defaultButton":             { "$value": "#6750A4", "$type": "color", "$description": "Fallback button color" },
+      "searchBackground":          { "$value": "#FFFBFE", "$type": "color", "$description": "Search input background" },
+      "cardPlaceholderBackground": { "$value": "#E7E0EC", "$type": "color", "$description": "Card placeholder" },
+      "optionsSelector":           { "$value": "#26000000", "$type": "color", "$description": "Options overlay (15% black)" }
+    },
+    "dark": {
+      "globalBackground":          { "$value": "#1C1B1F", "$type": "color" },
+      "lightBackground":           { "$value": "#49454F", "$type": "color" },
+      "textLight":                 { "$value": "#E6E1E5", "$type": "color" },
+      "textLighter":               { "$value": "#CAC4D0", "$type": "color" },
+      "highlight":                 { "$value": "#49454F", "$type": "color" },
+      "selectedBg":                { "$value": "#594F378B", "$type": "color", "$description": "Selected list item (primaryContainer 35%)" },
+      "cardShadow":                { "$value": "#66000000", "$type": "color", "$description": "Card drop shadow (40% black)" },
+      "dividerColor":              { "$value": "#49454F", "$type": "color" },
+      "linkColor":                 { "$value": "#D0BCFF", "$type": "color" },
+      "defaultButton":             { "$value": "#D0BCFF", "$type": "color" },
+      "searchBackground":          { "$value": "#49454F", "$type": "color" },
+      "cardPlaceholderBackground": { "$value": "#49454F", "$type": "color" },
+      "optionsSelector":           { "$value": "#38FFFFFF", "$type": "color", "$description": "Options overlay (22% white)" }
+    }
+  }
+}
